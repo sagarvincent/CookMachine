@@ -1,0 +1,21 @@
+{
+    "recipe_db": {
+        "host": "recipedb.cembyooxd0ya.eu-north-1.rds.amazonaws.com",
+        "port": 3306,
+        "database": "recipes",
+        "user": "sagar_dev_win",
+        "password": "Sagar8246"
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

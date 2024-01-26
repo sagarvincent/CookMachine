@@ -1,5 +1,7 @@
 # import libraries
 import requests
+import subprocess
+import time
 
 
 
@@ -10,21 +12,32 @@ class db_api():
     def __init__(self,api_url):
         self.api_url = api_url
 
-        pass
+        # define cmd script to run the api application
+        api_script = r"api_launch.txt"
+        self.api_process = subprocess.Popen(api_script, shell=True)
+        time.sleep(5)
+        
 
     # function to pass database info to api
-    def db_connect(self,ip_add,port_no,db_name,db_user,db_pass):
+    def db_connect(self,db_info):
 
         # create a db configuration dict
         db_config = {
-            'host' : ip_add,
-            'port' : port_no,
-            'database' : db_name,
-            'user' : db_user,
-            'password' : db_pass
+            'host' : db_info['host'],
+            'port' : db_info['port'],
+            'user' : db_info['user'],
+            'password' : db_info['password'],
+            'database' : db_info['database']
         }
-
-        requests.post(self.api_url+'/db_config',db_config)
+        endpoint_url = f"{self.api_url}/db_config"
+        try:
+            requests.post(endpoint_url,json = db_config)
+        except:
+            print("API not running")
+        endpoint_url2 = f"{self.api_url}/get_data"
+        response = requests.get(endpoint_url2)
+        print(response.json())
+        
         
 
 
